@@ -1,7 +1,7 @@
 # tec
 Repositório do trabalho prático de TEC.
 
-#Ditribuição de tarefas:
+# Ditribuição de tarefas:
 Tiago - tiago-ua
 	Histograma da perda de energia (deposição de energia) total nos detetores para cada partícula (muões, piões, outras).
 Pedro - StCrown
