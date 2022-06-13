@@ -1,3 +1,7 @@
+# ficheiros root
+*.root
+notas.txt
+
 # Prerequisites
 *.d
 
