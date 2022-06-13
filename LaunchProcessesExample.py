@@ -6,18 +6,20 @@ import string
 import multiprocessing  # the module we will be using for multiprocessing
 
 
-
 def work(Run):
 	#NEvents=1000000
 	WORKING_DIRECTORY=os.getcwd()
 	#randSeed=random.randint(0,32766)
-	#resultsFile="AmberTarget_"+str(Run)
+	resultsFile="AmberTarget_Run_"+str(Run)+".root"
+	#print(resultsFile)
+	os.system("root -l -q DetEneHist.C\(\\\""+resultsFile+"\\\"\)")
+	os.system("root -l -q EnergyParticle.C\(\\\"" + resultsFile + "\\\"\)")
 	#os.system("mkdir "+resultsFile)
 	#os.system("cp "+WORKING_DIRECTORY+"/MultipleFibbers "+resultsFile)
 	#os.system("cp "+WORKING_DIRECTORY+"/*.mac "+resultsFile)
 	#os.system("cp "+WORKING_DIRECTORY+"/TRITIUMSpectrumNew.txt "+resultsFile)
 	#os.chdir(WORKING_DIRECTORY+"/"+resultsFile)
-	os.system("./AmberTarget "+str(Run)+" 0")
+	#os.system("./AmberTarget "+str(Run)+" 0")
 	#os.system("mv *.root "+WORKING_DIRECTORY+"/DATA/")
 	#os.system("mv output*.txt "+WORKING_DIRECTORY+"/OUTPUTS/")
 	#os.chdir(WORKING_DIRECTORY)
@@ -31,27 +33,9 @@ if __name__ == "__main__":  # Allows for the safe importing of the main module
 	#os.system("mkdir OUTPUTS")
 	number_processes = multiprocessing.cpu_count()-1
 	pool = multiprocessing.Pool(number_processes)
-	total_tasks = 100
+	total_tasks = 4
 	tasks = range(total_tasks)
 	results = pool.map_async(work, tasks)
 	pool.close()
 	pool.join()
-
-#adicionar aqui o hadd
-def main ():
-	
-	str = os.popen('ls AmberTarget_*.root').read()
-	INPUTS = list(string.split(str))
-
-	#testar
-	for i in range(4):
-		INPUTS+=INPUTS[i]	
-
-	os.system("hadd ficheirofinals.root" + INPUTS)
-	work()
-	
-
-		
-
-	
 
