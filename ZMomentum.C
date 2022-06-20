@@ -18,8 +18,8 @@ void ZMomentum(TString nome){
 	TString canvasName;
 	TString histoName;
 	
-	//piões -13 13
-	//muões -211 21
+	//Muões -13 13
+	//Piões -211 21
 	THStack *hs = new THStack("hs","Stacked 1D histograms");
 	
 	for (Int_t i=0; i<nHistos; i++){
