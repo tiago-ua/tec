@@ -12,9 +12,9 @@ void ZMomentum(TString nome){
 	Int_t nHistos=3;
 	
 	TH1D* Momentum[nHistos];
-	TCanvas *canvas[nHistos];
+	//TCanvas *canvas[nHistos];
 	TString branchName ="pZ_GeV";
-	TString canvasName;
+	//TString canvasName;
 	TString histoName;
 	
 	//Muões -13 13
