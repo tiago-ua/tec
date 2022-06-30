@@ -1,9 +1,11 @@
 #include <stdlib.h>
 
-void soma_de_energia_4_particulas(){
-	TFile * ficheiro= new TFile("AmberTarget_Run_0.root","READ");
-	TFile * ficheiroGravar= new TFile("Analise.root","RECREATE");
-	TTree * dados= (TTree*)  ficheiro -> Get("tracksData");
+void soma_de_energia_4_particulas(TString nome){
+	TFile * inputFile = new TFile(nome,"READ");
+	TString novoNome = nome;
+	novoNome.ReplaceAll("AmberTarget_Run", "Analise");
+	TFile * outputFile= new TFile(novoNome,"RECREATE");
+	TTree * dados= (TTree*)  inputFile -> Get("tracksData");
 
 	Double_t detetor[4];
 	Int_t PDG;
@@ -12,7 +14,6 @@ void soma_de_energia_4_particulas(){
 		dados->SetBranchAddress("EdepDet" + TString::Itoa(i,10) + "_keV", &detetor[i]);
 	}
 	dados->SetBranchAddress("particlePDG",&PDG);
-
 
 	TTree* newTree = new TTree("newTree","newTree");
 	Double_t Soma;
@@ -27,7 +28,6 @@ void soma_de_energia_4_particulas(){
 	} 
 	
 	//newTree -> Scan();
-
 	Int_t nBins=500;
     Double_t minBin=1000;
     Double_t maxBin=100000;
@@ -35,7 +35,6 @@ void soma_de_energia_4_particulas(){
     TH1D* histoDetetor[3];
 	TString branchName = "Soma";
     THStack *hs = new THStack("hs","Stacked 1D histograms");
-
 
 	TString histoName = "pioes";
 	histoDetetor[0]=new TH1D(histoName, histoName, nBins, minBin, maxBin);
@@ -51,7 +50,7 @@ void soma_de_energia_4_particulas(){
 	histoDetetor[1]->Write();
 	hs->Add(histoDetetor[1]);
 
-	histoName = "outros";
+	histoName = "outras";
 	histoDetetor[2]=new TH1D(histoName, histoName, nBins, minBin, maxBin);
 	histoDetetor[2]->SetLineColor(kGreen);
 	newTree->Draw(branchName+">>"+histoName, "abs(PDG) != 211 && abs(PDG)!=13");
@@ -59,6 +58,7 @@ void soma_de_energia_4_particulas(){
 	hs->Add(histoDetetor[2]);
 
 	gPad->SetLogy(1);
+
 	hs->SetTitle("Energy deposition for muons, pions and other particles");
 	hs->Draw("NoStack");
 
@@ -69,6 +69,5 @@ void soma_de_energia_4_particulas(){
 	legend->AddEntry(histoDetetor[2],"Other particles","l");
 	legend->Draw();
 
-	//newTree -> Write();
+	newTree -> Write();
 }
-
