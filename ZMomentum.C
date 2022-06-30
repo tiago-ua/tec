@@ -6,11 +6,10 @@ void ZMomentum(TString nome){
 	TFile * ficheiroGravar= new TFile(novoNome,"RECREATE");
 	TTree * dados= (TTree*)  ficheiro -> Get("tracksData");
 	
-	Int_t nBins=200;
-	Double_t minBin=0.0;
-	Double_t maxBin=210;
+	Int_t nBins=1000;
+	Double_t minBin=-4;
+	Double_t maxBin=4;
 	Int_t nHistos=3;
-	//Double_t pz;
 	
 	TH1D* Momentum[nHistos];
 	TCanvas *canvas[nHistos];
@@ -20,7 +19,10 @@ void ZMomentum(TString nome){
 	
 	//Muões -13 13
 	//Piões -211 21
-	THStack *hs = new THStack("hs","Stacked 1D histograms");
+	
+	auto c4 = new TCanvas("Distribuicao do momento na componente Z para muoes e pioes", "Distribuicao do momento na componente Z para muoes e pioes", 600,500);
+	THStack *hs = new THStack("hs","Distribuicao do momento na componente Z para muoes e pioes");
+	TLegend *leg = new TLegend(0.5752508,0.6680672,0.8762542,0.8781513);
 	
 	for (Int_t i=0; i<nHistos; i++){
 			TString cut;
@@ -36,16 +38,18 @@ void ZMomentum(TString nome){
 				histoName="Outras";
 				cut=branchName+">0 && (particlePDG != 13 && particlePDG != -13 && particlePDG != -211 && particlePDG != 211)";
 			}
-				
-			
+					
 			Momentum[i] = new TH1D(histoName,histoName,nBins,minBin,maxBin);
-			canvasName="canvas"+TString::Itoa(i,10);
-			canvas[i]= new TCanvas(canvasName,canvasName);	
+			Momentum[i]->SetLineColor(i+1);
+			Momentum[i]->SetFillStyle(4050);
 			dados->Draw(branchName+">>"+histoName,cut);
-			//dados->Draw(branchName+">>"+histoName,branchName+">0"); //Funciona
 			Momentum[i] -> SetTitle(histoName);
 			Momentum[i] -> Write();
 			hs->Add(Momentum[i]);
+			leg->AddEntry(histoName);
 			}
+			
+	hs->Draw("Nostack");
+	leg->Draw();
 
 }
