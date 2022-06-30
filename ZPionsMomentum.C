@@ -12,9 +12,9 @@ void ZPionsMomentum(TString nome){
 	Int_t nHistos=2;
 	
 	TH1D* PionsMomentum[nHistos];
-	TCanvas *canvas[nHistos];
+	//TCanvas *canvas[nHistos];
 	TString branchName ="pZ_GeV";
-	TString canvasName;
+	//TString canvasName;
 	TString histoName;
 	
 
