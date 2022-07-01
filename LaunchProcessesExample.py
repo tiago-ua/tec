@@ -17,7 +17,11 @@ def work(Run):
 	os.system("root -l -q ZMomentum.C\(\\\"" + resultsFile + "\\\"\)")
 	os.system("root -l -q ZPionsMomentum.C\(\\\"" + resultsFile + "\\\"\)")
 	os.system("root -l -q analysis.C\(\\\"" + resultsFile + "\\\"\)")
-	os.system("root -l -q soma_de_energia_4_particulas.C\(\\\"" + resultsFile + "\\\"\)")	
+	os.system("root -l -q soma_de_energia_4_particulas.C\(\\\"" + resultsFile + "\\\"\)")
+	os.system("root -l -q hadronicVertex.odt\(\\\"" + resultsFile + "\\\"\)")
+	os.system("root -l -q hits_distribution_x_y.c\(\\\"" + resultsFile + "\\\"\)")
+	os.system("root -l -q vertex.c\(\\\"" + resultsFile + "\\\"\)")
+	
 	#os.system("mkdir "+resultsFile)
 	#os.system("cp "+WORKING_DIRECTORY+"/MultipleFibbers "+resultsFile)
 	#os.system("cp "+WORKING_DIRECTORY+"/*.mac "+resultsFile)
