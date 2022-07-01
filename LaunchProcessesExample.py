@@ -14,6 +14,10 @@ def work(Run):
 	#print(resultsFile)
 	os.system("root -l -q DetEneHist.C\(\\\""+resultsFile+"\\\"\)")
 	os.system("root -l -q ParticleEnergy.C\(\\\"" + resultsFile + "\\\"\)")
+	os.system("root -l -q ZMomentum.C\(\\\"" + resultsFile + "\\\"\)")
+	os.system("root -l -q ZPionsMomentum.C\(\\\"" + resultsFile + "\\\"\)")
+	os.system("root -l -q analysis.C\(\\\"" + resultsFile + "\\\"\)")
+	os.system("root -l -q soma_de_energia_4_particulas.C\(\\\"" + resultsFile + "\\\"\)")	
 	#os.system("mkdir "+resultsFile)
 	#os.system("cp "+WORKING_DIRECTORY+"/MultipleFibbers "+resultsFile)
 	#os.system("cp "+WORKING_DIRECTORY+"/*.mac "+resultsFile)
@@ -38,4 +42,3 @@ if __name__ == "__main__":  # Allows for the safe importing of the main module
 	results = pool.map_async(work, tasks)
 	pool.close()
 	pool.join()
-
