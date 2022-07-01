@@ -1,4 +1,4 @@
-# tec
+# tec - GRUPO 4
 Repositório do trabalho prático de TEC.
 
 # Ditribuição de tarefas:
